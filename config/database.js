@@ -1,3 +1,3 @@
 module.exports = {
-    database: 'mongodb://127.0.0.1:27017/shopping-cart-project'
+    database: 'mongodb+srv://saksham:120501@issuetrackingsystem.axdv9.mongodb.net/shopping-cart-project?retryWrites=true&w=majority'
 }
