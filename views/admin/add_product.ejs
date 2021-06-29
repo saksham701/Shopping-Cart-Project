@@ -1,0 +1,60 @@
+<%- include('../_layouts/adminheader') %>
+<h2 class="page-title">Add a Product</h2>
+<a href="/admin/products" class="btn btn-primary">Back to All Products</a>
+<br><br><br>
+
+<form action="/admin/products/add-product" method="post" enctype="multipart/form-data">
+
+<div class="form-group">
+    <label for="">Title</label>
+    <input type="text" class="form-control" name="title" value="<%= title%>" placeholder="title">
+</div>
+
+<div class="form-group">
+    <label for="">Description</label>
+   <textarea name="description" class="form-control"  cols="30" rows="10" placeholder="description"> <%=description%></textarea>
+</div>
+
+<div class="form-group">
+    <label for="">Category</label>
+   <select name="category" class="form-control">
+       <!-- <option selected>Select Category</option> -->
+       <%categories.forEach((category)=>{%>
+            <option value="<%= category.slug%>"><%= category.title%></option>
+       <%});%>
+   </select>
+</div>
+
+<div class="form-group">
+    <label for="">Price</label>
+    <input type="text" class="form-control form-select" name="price" value="<%= price%>" placeholder="price">
+</div>
+
+<div class="form-group">
+    <label for="">Image</label>
+    <input type="file" class="form-control-file" name="image"  id="img" >
+    
+    <img src="#" alt="img-preview" id="img-preview">
+</div>
+
+<button class="btn btn-success">Submit</button>
+<script >
+     
+     function readURL(input) {
+         if(input.files && input.files[0]){
+             let reader = new FileReader();
+
+             reader.onload = function(e){
+                 $("#img-preview").attr('src',e.target.result).height(100).width(100);
+             }
+             reader.readAsDataURL(input.files[0]);
+         }
+        
+     }
+     $("#img").change(function(){
+         readURL(this);
+     });
+</script>
+
+</form>
+<%- include('../_layouts/adminfooter') %>

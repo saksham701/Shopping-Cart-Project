@@ -1,0 +1,59 @@
+<%- include('_layouts/header') %>
+   
+    <%if(typeof cart !== "undefined"){%>
+        <h1 class="page-title text-center">My cart</h1>
+        <br><br>
+        <table class="table table-striped alignmiddle">
+            <tr>
+                <th>Image</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th></th>
+                <th>Subtotal</th>
+            </tr>
+            <%let total=0;%>
+            <%cart.forEach((product)=>{%>
+            <% let subTotal = parseFloat(product.quantity*product.price).toFixed(2);%>
+            <%total+= +subTotal%>
+                <tr>
+                    <td>
+                        <img class="cpi" src="<%=product.image%>" alt="">
+                    </td>
+                    <td><%=product.title%></td>
+                    <td>$<%=product.price%></td>
+                    <td><%=product.quantity%></td>
+                    <td>
+                        <a href="/cart/update/<%=product.title%>?action=add">+</a>&nbsp;
+                        <a href="/cart/update/<%=product.title%>?action=remove">-</a>&nbsp;
+                        <a href="/cart/update/<%=product.title%>?action=clear">Clear</a>&nbsp;
+                    </td>
+                    <td>$<%=parseFloat(subTotal).toFixed(2)%></td>
+                </tr>
+                
+            <%});%>
+            <tr>
+                <td colspan="6" align="right"><b>Total : $</b> <%=parseFloat(total).toFixed(2)%></td>
+            </tr>
+            <tr>
+                <td colspan="5" align="right">
+                    <a class=" clearcart btn btn-danger" href="/cart/clear">Clear Cart</a>
+                    
+                </td>
+                <td colspan="5" align="right">
+                    <a class="btn btn-primary buynow" href="#">Buy Now</a>
+                    
+                </td>
+            </tr>
+        </table>
+    <%}else{%>
+        <h3 class="text-center">Your cart is empty</h3>
+    <%}%>
+    <script>
+        $(function(){
+            $('a.clearcart').on('click', () => {
+        if (!confirm('Confirm clear cart')) return false;
+        });
+        });
+    </script>
+<%- include('_layouts/footer') %>
