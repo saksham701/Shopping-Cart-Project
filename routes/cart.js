@@ -2,9 +2,12 @@ const express = require('express');
 const router = express.Router();
 const Product = require('../models/products');
 
+const auth = require('../config/auth');
+const isUser = auth.isUser;
+
 
 //GET add product to cart
-router.get('/add/:product', (req, res) => {
+router.get('/add/:product', isUser,(req, res) => {
 
     let slug = req.params.product;
 
@@ -50,7 +53,7 @@ router.get('/add/:product', (req, res) => {
 
 //GET checkout page
 
-router.get('/checkout', (req, res) => {
+router.get('/checkout', isUser,(req, res) => {
 
     if (req.session.cart && req.session.cart.length == 0) {
         delete req.session.cart;
@@ -66,7 +69,7 @@ router.get('/checkout', (req, res) => {
 
 //GET update product
 
-router.get('/update/:product', (req, res) => {
+router.get('/update/:product', isUser,(req, res) => {
 
     let slug = req.params.product;
     let cart = req.session.cart;
@@ -102,7 +105,7 @@ router.get('/update/:product', (req, res) => {
 
 //GET clear cart
 
-router.get('/clear', (req, res) => {
+router.get('/clear',isUser, (req, res) => {
 
     delete req.session.cart;
     req.flash('success', 'Cart cleared!');

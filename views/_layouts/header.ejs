@@ -43,7 +43,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li>
               <a href="/cart/checkout">My Cart(
-                <%if(typeof cart !== "undefined"){%>
+                <%if(typeof cart !== "undefined " && user){%>
                   <%=cart.length%>
                   <%}else{%>0
                   <%}%>)
